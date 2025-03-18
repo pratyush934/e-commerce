@@ -46,7 +46,7 @@ func (user *User) BeforeSave(db *gorm.DB) (err error) {
 }
 
 func (user *User) Save() (*User, error) {
-	err := dbUser.DB.Create(&user).Error
+	err := dbUser.DB.Create(user).Error
 
 	if err != nil {
 		log.Error().Msg("There is an error in user-model.go/Save")
@@ -56,7 +56,7 @@ func (user *User) Save() (*User, error) {
 	return user, nil
 }
 
-func (user *User) ValidatePassword(password String) error {
+func (user *User) ValidatePassword(password string) error {
 	err := bcrypt.CompareHashAndPassword([]byte(user.PassWord), []byte(password))
 
 	if err != nil {
